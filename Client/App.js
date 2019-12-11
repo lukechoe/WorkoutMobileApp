@@ -65,7 +65,7 @@ class WorkoutInstance extends React.Component {
           this.state = {
             numOfExercises: 0,
           };
-
+   
           //this._onPressGet = this._onPressGet.bind(this);
     }
 
