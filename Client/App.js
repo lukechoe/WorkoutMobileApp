@@ -1,10 +1,4 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
+
 
 import React from 'react';
 import {
@@ -29,6 +23,8 @@ import {
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+
+import Exercises from './javascript/workouts';
 
 
 class HomeScreen extends React.Component {
@@ -65,7 +61,7 @@ class WorkoutInstance extends React.Component {
           this.state = {
             numOfExercises: 0,
           };
-   
+
           //this._onPressGet = this._onPressGet.bind(this);
     }
 
@@ -99,58 +95,7 @@ class WorkoutInstance extends React.Component {
     }
 }
 
-class Exercises extends React.Component {
-    static navigationOptions = {
-      title: 'Choose Exercise',
-      headerStyle: {
-        backgroundColor: 'lightblue',
-      },
-      headerTitleStyle: {
-          //textAlign: 'center',
-          flexGrow:1,
-          alignSelf:'center',
-      },
-    };
 
-    render() {
-        const {navigation} =this.props;
-
-        return (
-            <View style={styles.workoutsContainer}>
-            <Text>  thing: {JSON.stringify(navigation.getParam('numOfExercises', -1))} </Text>
-            <FlatList
-              data={[
-                {key: 'Bench Press'},
-                {key: 'Dumbbell Press'},
-                {key: 'Barbell Squats'},
-                {key: 'Barbell Deadlift'},
-                {key: 'Incline Benchpress'},
-                {key: 'Leg Press'},
-                {key: 'Barbell Clean'},
-                {key: 'Situps'},
-                {key: 'Rows'},
-                {key: 'Lat Pull Downs'},
-                {key: '1Bench Press'},
-                {key: '1Dumbbell Press'},
-                {key: '1Barbell Squats'},
-                {key: '1Barbell Deadlift'},
-                {key: '1Incline Benchpress'},
-                {key: '1Leg Press'},
-                {key: '1Barbell Clean'},
-                {key: '1Situps'},
-                {key: '1Rows'},
-                {key: '1Lat Pull Downs'},
-              ]}
-              renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
-              />
-              <Button
-                title="Done."
-                onPress={() => this.props.navigation.navigate('WorkoutInstance')}
-              />
-            </View>
-        );
-    }
-}
 
 
 const styles = StyleSheet.create({
