@@ -4,12 +4,18 @@ import {
   SafeAreaView,
   StyleSheet,
   ScrollView,
+  StatusBar,
   View,
   Text,
-  StatusBar,
+  TouchableHighlight,
   FlatList,
   SectionList,
 } from 'react-native';
+
+import AtoZList from 'react-native-atoz-list';
+var AlphabetListView = require('react-native-alphabetlistview');
+import AlphabetSectionList from 'react-native-alphabet-sectionlist';
+
 
 
 class Exercises extends React.Component {
@@ -25,42 +31,79 @@ class Exercises extends React.Component {
       },
     };
 
+    constructor(props,context){
+        super(props,context)
+        this.state = {
+              data: {
+                'A': [{ name: 'A1' }, { name: 'A2' }, { name: 'A3' }],
+                "E": [{ name: 'E1' }, { name: 'E2' }, { name: 'E3' }, { name: 'E4' }],
+                'F': [{ name: 'F1' }, { name: 'F2' }, { name: 'F3' }],
+                'H': [{ name: 'H1' }, { name: 'H2' }, { name: 'H3' }, { name: 'H5' }],
+                'J': [{ name: 'J1' }, { name: 'J2' }, { name: 'J3' }, { name: 'J5' }],
+                'K': [{ name: 'K1' }, { name: 'K2' }, { name: 'K3' }, { name: 'K5' }],
+                'N': [{ name: 'N1' }, { name: 'N2' }, { name: 'N3' }, { name: 'N5' }],
+                'Y': [{ name: 'Y1' }, { name: 'Y2' }, { name: 'Y3' }, { name: 'Y5' }, { name: 'Y6' }],
+              },
+            };
+    }
+
+    _onPressButton(name) {
+         alert('You selected the exercise ' + name + '!');
+    }
+
+    renderItem = ({ item }) => {
+        return (
+          <View style={{
+            marginLeft: 10,
+            paddingVertical: 10,
+            borderBottomColor: 'lightgray',
+            borderBottomWidth: 0.5
+          }}>
+          <TouchableHighlight onPress={() => this._onPressButton(item.name)} underlayColor="white">
+
+            <Text>{item.name}</Text>
+         </TouchableHighlight>
+         </View>
+
+        )
+      }
+      renderHeader = () => {
+       return (
+         <View>
+           <Text>header1</Text>
+           <Text>header2</Text>
+         </View>
+       )
+     }
+
+     renderSectionHeader = ({ section: { title } }) => {
+       return (
+         <View style={{
+           paddingLeft: 10,
+           backgroundColor: '#f1f2f3',
+           paddingVertical: 5,
+         }}>
+           <Text style={{ color: 'blue' }}>{title}</Text>
+         </View>
+       )
+     }
+
     render() {
         const {navigation} =this.props;
 
         return (
-            <View style={styles.workoutsContainer}>
-            <Text>  thing: {JSON.stringify(navigation.getParam('numOfExercises', -1))} </Text>
-            <FlatList
-              data={[
-                {key: 'Bench Press'},
-                {key: 'Dumbbell Press'},
-                {key: 'Barbell Squats'},
-                {key: 'Barbell Deadlift'},
-                {key: 'Incline Benchpress'},
-                {key: 'Leg Press'},
-                {key: 'Barbell Clean'},
-                {key: 'Situps'},
-                {key: 'Rows'},
-                {key: 'Lat Pull Downs'},
-                {key: '1Bench Press'},
-                {key: '1Dumbbell Press'},
-                {key: '1Barbell Squats'},
-                {key: '1Barbell Deadlift'},
-                {key: '1Incline Benchpress'},
-                {key: '1Leg Press'},
-                {key: '1Barbell Clean'},
-                {key: '1Situps'},
-                {key: '1Rows'},
-                {key: '1Lat Pull Downs'},
-              ]}
-              renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
-              />
-              <Button
-                title="Done."
-                onPress={() => this.props.navigation.navigate('WorkoutInstance')}
-              />
-            </View>
+            <View style={{ flex: 1 }}>
+                <AlphabetSectionList
+                  data={this.state.data}
+                  renderItem={this.renderItem}
+                  renderHeader={this.renderHeader}
+                  // custom section header
+                  renderSectionHeader={this.renderSectionHeader}
+                  // default section header styles
+                  // sectionHeaderStyle={{ paddingVertical: 5 }}
+                  // sectionHeaderTextStyle={{ fontSize: 16, color: 'blue' }}
+                />
+              </View>
         );
     }
 }
@@ -72,4 +115,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default Exercises;
+export default Exercises ;

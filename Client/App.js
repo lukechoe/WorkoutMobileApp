@@ -25,6 +25,7 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import Exercises from './javascript/workouts';
+var AlphabetListView = require('react-native-alphabetlistview');
 
 
 class HomeScreen extends React.Component {
@@ -45,7 +46,7 @@ class HomeScreen extends React.Component {
     return (
         <View style={styles.container}>
               <Button
-                title="Start a custom workout!"
+                title="Start a custom workout!!"
                 onPress={() => navigate('WorkoutInstance')}
               />
         </View>
