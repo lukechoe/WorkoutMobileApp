@@ -61,8 +61,19 @@ class WorkoutInstance extends React.Component {
 
           this.state = {
             numOfExercises: 0,
+            listOfExercises: [],
           };
-
+          if (this.props.navigation && this.props.navigation.state && this.props.navigation.state.params){
+              console.log('in if statement')
+              this.pastStateParams = this.props.navigation.state.params;
+              if (this.pastStateParams.listOfExercises == undefined){
+                  this.state.listOfExercises = [{key: 'shouldnt get here'}];
+              }
+              else{
+                  console.log(this.state.listOfExercises);
+                  this.state.listOfExercises = this.pastStateParams.listOfExercises;
+              }
+          }
           //this._onPressGet = this._onPressGet.bind(this);
     }
 
@@ -80,23 +91,57 @@ class WorkoutInstance extends React.Component {
     render() {
         const {navigate} =this.props.navigation;
         //setState
-        return (
-            <View style={styles.container}>
-            <Text>
-                "Num of Exercises : " + {this.state.numOfExercises};
-            </Text>
-                <Button
-                  title="Add an exercise."
-                  onPress={() => {
-                      this.state.numOfExercises += 1;
-                      navigate('Exercises', {
-                          state: this.state,
-                          numOfExercises: this.state.numOfExercises,
-                      });
-                  }}
-                />
-            </View>
-        );
+        if (this.props.navigation.state.params){
+            console.log("ok")
+
+            return (
+                <View style={styles.container}>
+                    <Text>
+                        "Num of Exercises : " + {this.state.numOfExercises};
+                    </Text>
+                    <Button
+                      title="Add an exercise."
+                      onPress={() => {
+                          this.state.numOfExercises += 1;
+                          navigate('Exercises', {
+                              state: this.state,
+                              numOfExercises: this.state.numOfExercises,
+                          });
+                      }}
+                    />
+                    <FlatList
+                      data={this.props.navigation.state.params.listOfExercises}
+                      //data={this.state.listOfExercises}
+                      renderItem={({item}) =>
+                      <Text style={styles.item}>
+                        {item.key}
+                        Other stuff HERE
+                      </Text>}
+                    />
+                </View>
+            );
+        }
+        else{
+            //first time rendered... from welcome page
+            console.log("first?")
+            return (
+                <View style={styles.container}>
+                    <Text>
+                        "Num of Exercises : " + {this.state.numOfExercises};
+                    </Text>
+                    <Button
+                      title="Add an exercise."
+                      onPress={() => {
+                          this.state.numOfExercises += 1;
+                          navigate('Exercises', {
+                              state: this.state,
+                              numOfExercises: this.state.numOfExercises,
+                          });
+                      }}
+                    />
+                </View>
+            );
+        }
     }
 }
 

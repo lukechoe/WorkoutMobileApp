@@ -46,11 +46,22 @@ class Exercises extends React.Component {
                 'N': [{ name: 'N1' }, { name: 'N2' }, { name: 'N3' }, { name: 'N5' }],
                 'Y': [{ name: 'Y1' }, { name: 'Y2' }, { name: 'Y3' }, { name: 'Y5' }, { name: 'Y6' }],
               },
+              listOfExercises: [],
+
             };
     }
 
     _onPressExercise(name, pastStateParams) {
-         alert('You selected the exercise ' + name + '!' + pastStateParams.numOfExercises);
+         //alert('You selected the exercise ' + name + '!' + pastStateParams.numOfExercises);
+         const {navigate} =this.props.navigation;
+         this.state.listOfExercises.push({
+             key: name,
+         });
+         navigate('WorkoutInstance', {
+             state: this.state,
+             numOfExercises: this.state.numOfExercises,
+             listOfExercises: this.state.listOfExercises,
+         });
     }
 
     renderItem = ({ item }) => {
