@@ -82,15 +82,19 @@ class WorkoutInstance extends React.Component {
         //setState
         return (
             <View style={styles.container}>
+            <Text>
+                "Num of Exercises : " + {this.state.numOfExercises};
+            </Text>
                 <Button
                   title="Add an exercise."
                   onPress={() => {
                       this.state.numOfExercises += 1;
-                      navigate('Exercises', this.state)
+                      navigate('Exercises', {
+                          state: this.state,
+                          numOfExercises: this.state.numOfExercises,
+                      });
                   }}
                 />
-
-
             </View>
         );
     }

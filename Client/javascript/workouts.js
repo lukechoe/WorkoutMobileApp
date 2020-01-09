@@ -33,6 +33,8 @@ class Exercises extends React.Component {
 
     constructor(props,context){
         super(props,context)
+        this.pastStateParams = this.props.navigation.state.params;
+        //JSON.stringify(navigation.getParam('state', 'unknown...'));
         this.state = {
               data: {
                 'A': [{ name: 'A1' }, { name: 'A2' }, { name: 'A3' }],
@@ -47,8 +49,8 @@ class Exercises extends React.Component {
             };
     }
 
-    _onPressButton(name) {
-         alert('You selected the exercise ' + name + '!');
+    _onPressExercise(name, pastStateParams) {
+         alert('You selected the exercise ' + name + '!' + pastStateParams.numOfExercises);
     }
 
     renderItem = ({ item }) => {
@@ -59,7 +61,7 @@ class Exercises extends React.Component {
             borderBottomColor: 'lightgray',
             borderBottomWidth: 0.5
           }}>
-          <TouchableHighlight onPress={() => this._onPressButton(item.name)} underlayColor="white">
+          <TouchableHighlight onPress={() => this._onPressExercise(item.name, this.pastStateParams)} underlayColor="white">
 
             <Text>{item.name}</Text>
          </TouchableHighlight>
@@ -93,6 +95,9 @@ class Exercises extends React.Component {
 
         return (
             <View style={{ flex: 1 }}>
+            <Text>
+            {JSON.stringify(navigation.getParam('state', 'unknown...'))}
+            </Text>
                 <AlphabetSectionList
                   data={this.state.data}
                   renderItem={this.renderItem}
